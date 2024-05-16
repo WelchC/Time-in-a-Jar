@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Read Jar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="title">Time in a Jar</div>
+        <div class="nav-buttons">
+            <a href='/login.html'>Login</a>
+            <a href='/signup.html'>Signup</a>
+        </div>
+    </nav>
+
+    <button class="button" onclick="goToLinkedPage()">Back</button>
+    
+    <div class="centered-userlogbox" id="jarsContainer">
+        <h1>Select a Jar to Read</h1>
+    </div>
+
+
+    <script>
+
+        function goToLinkedPage() {
+            window.location.href = 'user-home.html';
+        }
+
+        async function fetchUserJars() {
+            try {
+                const response = await fetch('/get-user-jars');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch jars.');
+                }
+                const jars = await response.json();
+                const jarsContainer = document.getElementById('jarsContainer');
+                jars.forEach(jar => {
+                    const button = document.createElement('button');
+                     button.classList.add("button");
+                    button.textContent = jar.jarName;
+                    button.onclick = () => {
+                        window.location.href = `/view-notes?jarId=${jar.jarId}`;
+                    };
+                    jarsContainer.appendChild(button);
+                });
+            } catch (error) {
+                console.error('Error fetching jars:', error);
+                alert('Failed to load jars. Please try again later.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchUserJars);
+    </script>
+</body>
+</html>

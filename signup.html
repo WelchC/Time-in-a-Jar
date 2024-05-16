@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="title">Time in a Jar</div>
+        <div class="nav-buttons">
+            <a href='/login.html'>Login</a>
+            <a href='/signup.html'>Signup</a>
+        </div>
+    </nav>
+
+    <button class="button" onclick="goToLinkedPage()">Back</button>
+
+    <div class="centered-userlogbox">
+        <h1>Signup</h1>
+        <form action="/signup" method="POST">
+            <h3>Username</h3>
+            <input type="text" name="username" placeholder="Username" required><br>
+            <h3>Password</h3>
+            <input type="password" name="password" placeholder="Password" required><br>
+            <button style="margin: 5px;" type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function goToLinkedPage() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

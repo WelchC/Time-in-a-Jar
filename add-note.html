@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Note</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="title">Time in a Jar</div>
+        <div class="nav-buttons">
+            <a href='/login.html'>Login</a>
+            <a href='/signup.html'>Signup</a>
+        </div>
+    </nav>
+
+    <button class="button" onclick="goToLinkedPage()">Back</button>
+
+    <div class="centered-userlogbox">
+        <div id="jarDetailsContainer"></div>
+
+        <h3>Add a Note</h3>
+        <form id="addNoteForm" method="POST" action="/add-note">
+            <label for="noteName">Name of Your Note:</label>
+            <input type="text" id="noteName" name="noteName" required><br>
+
+            <label for="noteSummary">Note Message:</label><br>
+            <textarea class="textarea" id="noteSummary" name="noteSummary" required></textarea><br>
+
+            <input type="hidden" id="jarId" name="jarId">
+            <button type="submit">Add Note</button>
+        </form>
+    </div>
+
+    <script>
+
+        function goToLinkedPage() {
+            window.location.href = 'add-to-jar.html';
+        }
+        async function fetchJarDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const jarId = urlParams.get('jarId');
+
+            try {
+                const response = await fetch(`/jar-details?jarId=${jarId}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch jar details.');
+                }
+                const jar = await response.json();
+
+                //Want to be able to see the specific jar and information related to it
+                const jarDetailsContainer = document.getElementById('jarDetailsContainer');
+                jarDetailsContainer.innerHTML = `
+                    <h1>${jar.jarName}</h1>
+                    <p><strong>Purpose of <i>${jar.jarName}</i>:</strong><br>${jar.jarSummary}</p>
+                    <p><strong>Date <i>${jar.jarName}</i> was made:</strong> ${jar.jarAccessDate}</p>
+                `;
+                document.getElementById('jarId').value = jar.jarId;
+            } catch (error) {
+                console.error('Error fetching jar details:', error);
+                alert('Failed to load jar details. Please try again later.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchJarDetails();
+        });
+    </script>
+</body>
+</html>
