@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create a New Jar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="title">Time in a Jar</div>
+        <div class="nav-buttons">
+            <a href='/login.html'>Login</a>
+            <a href='/signup.html'>Signup</a>
+        </div>
+    </nav>
+
+    <button class="button" onclick="goToLinkedPage()">Back</button>
+
+    <div class="centered-userlogbox ">
+        <h1>Create a New Jar</h1>
+        <form id="createJarForm" action="/create-jar" method="POST">
+            <label for="jarName">Name of Your Jar:</label>
+            <input type="text" id="jarName" name="jarName" required><br>
+
+            <label for="jarSummary">Purpose of Your Jar:</label><br>
+            <textarea class="textarea" id="jarSummary" name="jarSummary" required></textarea><br>
+
+            <label for="jarAccessDate">Date of Making Your Jar:</label>
+            <input type="date" id="jarAccessDate" name="jarAccessDate" required><br>
+
+            <button class="button" type="submit">Create</button>
+        </form>
+    </div>
+    
+    <script>
+        function goToLinkedPage() {
+            window.location.href = 'user-home.html';
+        }
+    </script>
+
+</body>
+</html>
